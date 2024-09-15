@@ -1,16 +1,16 @@
-Title,Title Sentiment,Average Comment Sentiment
-"[Daily Discussion] - Saturday, September 07, 2024",0.0,0.12746265060240963
-Day Trading advice needed - How to exit a position properly?,0.0,0.45154999999999995
-"[Daily Discussion] - Friday, September 06, 2024",0.0,0.06382854330708662
-"[Daily Discussion] - Thursday, September 05, 2024",0.0,0.09140194174757282
-"[Daily Discussion] - Wednesday, September 04, 2024",0.0,0.04267920792079208
-"[Daily Discussion] - Tuesday, September 03, 2024",0.0,0.06816761904761905
-"[Daily Discussion] - Monday, September 02, 2024",0.0,0.10934166666666667
-"[Daily Discussion] - Sunday, September 01, 2024",0.0,0.021225388601036267
-[Altcoin Discussion] - September 2024,0.0,-0.6808
-"[Daily Discussion] - Saturday, August 31, 2024",0.0,0.21489424460431655
-"[Daily Discussion] - Friday, August 30, 2024",0.0,0.02671913043478261
-"[Daily Discussion] - Thursday, August 29, 2024",0.0,0.08220052631578947
-"[Daily Discussion] - Wednesday, August 28, 2024",0.0,0.11365776699029126
-"[Daily Discussion] - Tuesday, August 27, 2024",0.0,-0.15354
-"[Daily Discussion] - Wednesday, January 10, 2024",0.0,0.151446330005872
+Title,Score
+"[Daily Discussion] - Saturday, September 07, 2024","Score: 0.0, 21, 0.24920549132947975, 346"
+Day Trading advice needed - How to exit a position properly?,"Score: 0.0, 9, 0.010745454545454542, 11"
+"[Daily Discussion] - Friday, September 06, 2024","Score: 0.0, 27, 0.022539421531869313, 1867"
+"[Daily Discussion] - Thursday, September 05, 2024","Score: 0.0, 24, 0.07088388106416275, 1278"
+"[Daily Discussion] - Wednesday, September 04, 2024","Score: 0.0, 24, -0.03250998151571165, 1082"
+"[Daily Discussion] - Tuesday, September 03, 2024","Score: 0.0, 20, 0.0975318460192476, 1143"
+"[Daily Discussion] - Monday, September 02, 2024","Score: 0.0, 27, 0.14384649265905383, 613"
+"[Daily Discussion] - Sunday, September 01, 2024","Score: 0.0, 21, 0.10828198757763974, 644"
+[Altcoin Discussion] - September 2024,"Score: 0.0, 3, -0.6808, 3"
+"[Daily Discussion] - Saturday, August 31, 2024","Score: 0.0, 25, 0.20515882352941175, 578"
+"[Daily Discussion] - Friday, August 30, 2024","Score: 0.0, 20, 0.052565474339035766, 643"
+"[Daily Discussion] - Thursday, August 29, 2024","Score: 0.0, 27, 0.09204149167270094, 1381"
+"[Daily Discussion] - Wednesday, August 28, 2024","Score: 0.0, 28, 0.056429508196721316, 915"
+"[Daily Discussion] - Tuesday, August 27, 2024","Score: 0.0, 25, -0.17523387096774196, 124"
+"[Daily Discussion] - Wednesday, January 10, 2024","Score: 0.0, 131, 0.16195201443679705, 11914"

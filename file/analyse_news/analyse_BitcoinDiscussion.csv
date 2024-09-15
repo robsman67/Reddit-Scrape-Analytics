@@ -1,23 +1,23 @@
-Title,Title Sentiment,Average Comment Sentiment
-A Lonely Old Bitcoin Miner Bids Farewell...,-0.3612,0.3816121951219512
-2024 BTC Conference Rundown,0.0,0.3888
-Do I have to be a libertarian to like Bitcoin?,0.5267,0.3494629629629629
-Initial Investigation into Miner Collusion,0.0,0.06997142857142857
-The Bitcoin Reserve Bill,0.0,-0.58355
-"I'm at a beach bar in El Salvador rn, here are my 'notes from the underground'.",0.0,0.4404
-"A New Bitcoin Lightning App ""Workit"" Launching Soon!",0.0,0.5867
-Will the ETF kill Bitcoin's scarcity?,-0.6908,0.012973913043478258
-Lightning Network,0.0,0.1141142857142857
-Wyoming Blockchain Symposium: Day 1 Recap (8/20/2024),0.0,0.0
-How does bitcoin tackle any flaws in the underlying code/hardware it resides on to keep it being secure?,0.34,0.02980909090909091
-How does bitcoin tackle any flaws in the underlying code/hardware it resides on to keep it being secure?,0.34,0.02980909090909091
-Wyoming Blockchain Symposium: Day 1 Recap (8/20/2024),0.0,0.0
-The Bitcoin Reserve Bill,0.0,-0.58355
-2024 BTC Conference Rundown,0.0,0.3888
-Lightning Network,0.0,0.1141142857142857
-A Lonely Old Bitcoin Miner Bids Farewell...,-0.3612,0.3816121951219512
-"A New Bitcoin Lightning App ""Workit"" Launching Soon!",0.0,0.5867
-Do I have to be a libertarian to like Bitcoin?,0.5267,0.3494629629629629
-"I'm at a beach bar in El Salvador rn, here are my 'notes from the underground'.",0.0,0.4404
-Will the ETF kill Bitcoin's scarcity?,-0.6908,0.012973913043478258
-Initial Investigation into Miner Collusion,0.0,0.06997142857142857
+Title,Score
+A Lonely Old Bitcoin Miner Bids Farewell...,"Score: -0.3612, 12, 0.3460590361445783, 83"
+2024 BTC Conference Rundown,"Score: 0.0, 7, 0.425975, 4"
+Do I have to be a libertarian to like Bitcoin?,"Score: 0.5267, 6, 0.21203333333333332, 66"
+Initial Investigation into Miner Collusion,"Score: 0.0, 7, 0.42106666666666664, 6"
+The Bitcoin Reserve Bill,"Score: 0.0, 6, -0.57168, 10"
+"I'm at a beach bar in El Salvador rn, here are my 'notes from the underground'.","Score: 0.0, 5, 0.4404, 1"
+"A New Bitcoin Lightning App ""Workit"" Launching Soon!","Score: 0.0, 3, 0.5427142857142857, 7"
+Will the ETF kill Bitcoin's scarcity?,"Score: -0.6908, 4, 0.1259578947368421, 38"
+Lightning Network,"Score: 0.0, 2, 0.19503, 10"
+Wyoming Blockchain Symposium: Day 1 Recap (8/20/2024),"Score: 0.0, 2, 0.0, 1"
+How does bitcoin tackle any flaws in the underlying code/hardware it resides on to keep it being secure?,"Score: 0.34, 1, 0.10917727272727272, 22"
+How does bitcoin tackle any flaws in the underlying code/hardware it resides on to keep it being secure?,"Score: 0.34, 1, 0.10917727272727272, 22"
+Wyoming Blockchain Symposium: Day 1 Recap (8/20/2024),"Score: 0.0, 2, 0.0, 1"
+The Bitcoin Reserve Bill,"Score: 0.0, 5, -0.57168, 10"
+2024 BTC Conference Rundown,"Score: 0.0, 5, 0.425975, 4"
+Lightning Network,"Score: 0.0, 4, 0.19503, 10"
+A Lonely Old Bitcoin Miner Bids Farewell...,"Score: -0.3612, 11, 0.33192048192771084, 83"
+"A New Bitcoin Lightning App ""Workit"" Launching Soon!","Score: 0.0, 4, 0.5427142857142857, 7"
+Do I have to be a libertarian to like Bitcoin?,"Score: 0.5267, 7, 0.18823870967741935, 62"
+"I'm at a beach bar in El Salvador rn, here are my 'notes from the underground'.","Score: 0.0, 7, 0.4404, 1"
+Will the ETF kill Bitcoin's scarcity?,"Score: -0.6908, 3, 0.13439444444444443, 36"
+Initial Investigation into Miner Collusion,"Score: 0.0, 7, 0.42106666666666664, 6"

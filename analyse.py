@@ -5,22 +5,28 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
 
-# Fonction de prétraitement des textes
+# Preprocessing function for text
 def preprocess_text(text):
     lemmatizer = WordNetLemmatizer()
 
     tokens = word_tokenize(text.lower())
-    filtered_tokens = [token for token in tokens if token not in stopwords.words('english')]
+    filtered_tokens = [token for token in tokens if token.isalnum()]  # Keep only alphanumeric words
     lemmatized_tokens = [lemmatizer.lemmatize(token) for token in filtered_tokens]
     processed_text = ' '.join(lemmatized_tokens)
     return processed_text
 
 
-# Fonction d'analyse des sentiments
-def get_sentiment(text):
+# Sentiment analysis function with score inversion for negative votes
+def get_sentiment(text, votes):
     analyzer = SentimentIntensityAnalyzer()
     scores = analyzer.polarity_scores(text)
-    return scores['compound']
+    sentiment_score = scores['compound']
+
+    # Invert the score if the vote is negative
+    if votes < 0:
+        sentiment_score = sentiment_score - 2 * sentiment_score
+
+    return sentiment_score
 
 
 def sentiment_analysis(list_subreddit_news, list_subreddit_trade):
@@ -33,92 +39,88 @@ def sentiment_analysis(list_subreddit_news, list_subreddit_trade):
         for subreddit_name in list_subreddit:
             print(subreddit_name)
 
-            # Lecture du fichier CSV ligne par ligne
+            # Read the CSV file line by line
             with open('file/' + save_in + '/' + subreddit_name, 'r', encoding='utf-8') as file:
                 lines = file.readlines()
 
-            # Variables pour stocker les résultats
+            # Variables to store the results
             posts_data = []
             current_post = None
             comments = []
 
-            # Parcourir les lignes du fichier
+            # Iterate through the lines in the file
             for line in lines:
-                line = line.strip()  # Supprimer les espaces blancs et les retours à la ligne
+                line = line.strip()  # Remove leading/trailing whitespace and newlines
 
                 if line.startswith("Title:"):
-                    # Si une nouvelle ligne commence par "Title", cela signifie qu'on commence un nouveau post
+                    # If a new line starts with "Title", it means we are starting a new post
                     if current_post:
-                        # Sauvegarder l'ancien post dans la liste des posts avant d'en traiter un nouveau
+                        # Save the previous post to the list before processing a new one
                         current_post['comments'] = comments
                         posts_data.append(current_post)
 
-                    # Initialisation du nouveau post
+                    # Initialize a new post
                     current_post = {'title': line.replace("Title:", "").strip(), 'votes': 0, 'comments': []}
                     comments = []
 
                 elif line.isdigit():
-                    # Si la ligne est un nombre, il s'agit des votes pour le titre ou pour un commentaire
+                    # If the line is a number, it is the vote count for the title or a comment
                     if not current_post['votes']:
-                        # Si le nombre de votes pour le titre n'est pas encore attribué
+                        # If the title vote count has not been set yet
                         current_post['votes'] = int(line)
                     else:
-                        # Sinon, il s'agit des votes pour le commentaire
+                        # Otherwise, it is the vote count for a comment
                         comments[-1]['votes'] = int(line)
 
                 elif line:
-                    # Si la ligne n'est ni un titre ni un nombre, c'est un commentaire
+                    # If the line is neither a title nor a number, it's a comment
                     comments.append({'text': line, 'votes': 0})
 
-            # Ajouter le dernier post si nécessaire
+            # Add the last post if necessary
             if current_post:
                 current_post['comments'] = comments
                 posts_data.append(current_post)
 
-            # Analyse des sentiments et création du DataFrame
+            # Sentiment analysis and DataFrame creation
             post_titles = []
-            title_sentiments = []
-            avg_comment_sentiments = []
+            post_scores = []
 
             for post in posts_data:
-                # Analyse du sentiment du titre
+                # Sentiment analysis for the title
                 processed_title = preprocess_text(post['title'])
-                title_sentiment = get_sentiment(processed_title)
+                title_sentiment = get_sentiment(processed_title, post['votes'])
 
-                # Imprimer le titre et son sentiment pour vérifier le résultat
-                print(f"Title: {post['title']}, Sentiment: {title_sentiment}")
+                # Ensure that the preprocessed and analyzed text is not empty
+                print(f"Processed Title: {processed_title}, Sentiment: {title_sentiment}")
 
-                # Analyse des sentiments des commentaires
+                # Sentiment analysis for the comments
                 comment_sentiments = []
+                total_comment_votes = 0
+
                 for comment in post['comments']:
                     processed_comment = preprocess_text(comment['text'])
-                    comment_sentiment = get_sentiment(processed_comment)
-                    comment_sentiments.append(comment_sentiment)
+                    comment_sentiment = get_sentiment(processed_comment, comment['votes'])
+                    comment_sentiments.append(comment_sentiment * comment['votes'])  # Weight by the number of votes
+                    total_comment_votes += comment['votes']
 
-                # Calcul de la moyenne des sentiments des commentaires
-                if comment_sentiments:
-                    avg_sentiment = sum(comment_sentiments) / len(comment_sentiments)
+                # Calculate the weighted average sentiment of the comments
+                if comment_sentiments and total_comment_votes > 0:
+                    avg_sentiment = sum(comment_sentiments) / total_comment_votes
                 else:
-                    avg_sentiment = None  # Pas de commentaires
+                    avg_sentiment = 0  # No comments, so set to 0
 
-                # Stockage des résultats
+                # Store the results
                 post_titles.append(post['title'])
-                title_sentiments.append(title_sentiment)
-                avg_comment_sentiments.append(avg_sentiment)
 
-            # Création du DataFrame Pandas
+                # Add the "Score" section with title sentiment, title votes, average comment sentiment, and comment votes
+                post_scores.append(f"Score: {title_sentiment}, {post['votes']}, {avg_sentiment}, {total_comment_votes}")
+
+            # Create a Pandas DataFrame with the "Score:" section
             df = pd.DataFrame({
                 'Title': post_titles,
-                'Title Sentiment': title_sentiments,
-                'Average Comment Sentiment': avg_comment_sentiments
+                'Score': post_scores  # Score with the requested values
             })
 
-            # Sauvegarde dans un fichier CSV
-
-            if save_in == "news":
-                save_in_two = "analyse_news"
-            else:
-                save_in_two = "analyse_trade"
-
+            # Save to a CSV file
+            save_in_two = "analyse_news" if save_in == "news" else "analyse_trade"
             df.to_csv('file/' + save_in_two + '/analyse_' + subreddit_name + '.csv', index=False)
-            #print(df)
