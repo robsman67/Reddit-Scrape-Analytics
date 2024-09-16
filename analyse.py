@@ -124,3 +124,4 @@ def sentiment_analysis(list_subreddit_news, list_subreddit_trade):
             # Save to a CSV file
             save_in_two = "analyse_news" if save_in == "news" else "analyse_trade"
             df.to_csv('file/' + save_in_two + '/analyse_' + subreddit_name + '.csv', index=False)
+
