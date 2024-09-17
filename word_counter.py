@@ -1,17 +1,25 @@
-import nltk
 from nltk.corpus import stopwords
 from collections import Counter
 import string
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+import os
 
 STOP_WORDS = set(stopwords.words('english'))
 
-def clean_text(text):
-    words = text.lower().split()
-    # Remove punctuation and stopwords and digits
+
+def clean_text(text, remove_chars=None):
+    if remove_chars is None:
+        remove_chars = []
+
+    # Create a translation table to remove specific characters
+    remove_chars_table = str.maketrans('', '', ''.join(remove_chars))
+
+    # Lowercase the text, remove specific characters, split into words
+    words = text.lower().translate(remove_chars_table).split()
     words = [word.strip(string.punctuation) for word in words
              if word.lower() not in STOP_WORDS and not word.isdigit()]
     return words
-
 
 def extract_words(file_path):
     all_words = []
@@ -28,7 +36,7 @@ def extract_words(file_path):
                     # If we have accumulated text, process it
                     if current_text:
                         text_content = ' '.join(current_text)
-                        all_words.extend(clean_text(text_content))
+                        all_words.extend(clean_text(text_content, remove_chars=[':']))
 
                     # Reset for the next post
                     current_text = [line]
@@ -39,7 +47,7 @@ def extract_words(file_path):
             # Process the last accumulated post
             if current_text:
                 text_content = ' '.join(current_text)
-                all_words.extend(clean_text(text_content))
+                all_words.extend(clean_text(text_content, remove_chars=[':']))
 
     except FileNotFoundError:
         print(f"File not found: {file_path}")
@@ -47,8 +55,7 @@ def extract_words(file_path):
     return all_words
 
 
-#100 more used words
-def get_top_words(words_list, top_n=100):
+def get_top_words(words_list, top_n=50):
     word_count = Counter(words_list)
     return word_count.most_common(top_n)
 
@@ -75,26 +82,22 @@ def process_subreddit_files(news_subreddits, trade_subreddits):
         except FileNotFoundError:
             print(f"File not found: {file_path}")
 
-    return (get_top_words(all_words_news), get_top_words(all_words_trade))
+    return (Counter(all_words_news), Counter(all_words_trade))
 
 
+def create_word_cloud(word_freq, title, output_path):
+    # Convert Counter object to a dictionary for wordcloud generation
+    wordcloud = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(dict(word_freq))
 
-# Example usage
-list_subreddit_news = ["Bitcoin", "CryptoCurrency", "btc",
-                       "CryptoCurrencies", "BitcoinDiscussion", "Ethereum"]
+    # Save the word cloud as an image
+    plt.figure(figsize=(10, 5))
+    plt.imshow(wordcloud, interpolation='bilinear')
+    plt.axis('off')
+    plt.title(title)
 
-list_subreddit_trade = ["CryptoMarkets", "BitcoinMarkets", "bitcointrading",
-                        "CryptoCurrencyTrading", "Ethtrader"]
+    # Ensure the directory exists
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-top_words_news, top_words_trade = process_subreddit_files(
-    list_subreddit_news, list_subreddit_trade
-)
-
-print("Top words in news:")
-for word, count in top_words_news:
-    print(f"{word}: {count}")
-
-print("\nTop words in trade:")
-for word, count in top_words_trade:
-    print(f"{word}: {count}")
-
+    # Save the figure to the specified path
+    plt.savefig(output_path, format='png')
+    plt.close()
