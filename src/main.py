@@ -31,8 +31,9 @@ if __name__ == "__main__":
 
     # Store word cloud for news
     print("Saving word cloud for news...")
-    create_word_cloud(word_freq_news, "Top Words in News Subreddits", "file/analyse_news_charts/news_wordcloud.png")
+    create_word_cloud(word_freq_news, "Top Words in News Subreddits", "../file/analyse_news_charts/news_wordcloud.png")
 
     # Store word cloud for trade
     print("Saving word cloud for trade...")
-    create_word_cloud(word_freq_trade, "Top Words in Trade Subreddits", "file/analyse_trade_charts/trade_wordcloud.png")
+    create_word_cloud(word_freq_trade, "Top Words in Trade Subreddits",
+                      "../file/analyse_trade_charts/trade_wordcloud.png")
